@@ -1,0 +1,49 @@
+version: '3'
+
+networks:
+  contentbird:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: contentbird_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-env/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker-env/nginx/uploadsize.conf:/etc/nginx/conf.d/uploadsize.conf
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - contentbird
+  mysql:
+    image: mysql:5.7.22
+    container_name: contentbird_mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: 1234
+        MYSQL_DATABASE: laravel
+        MYSQL_USER: root
+        MYSQL_PASSWORD: 1234
+        SERVICE_NAME: contentbird_database
+    volumes:
+      - "./docker-env/mysqldata/:/var/lib/mysql"
+    networks:
+      - contentbird
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: contentbird_php
+    volumes:
+      - ./:/var/www
+      - ./docker-env/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    ports:
+      - "9000:9000"
+    networks:
+      - contentbird

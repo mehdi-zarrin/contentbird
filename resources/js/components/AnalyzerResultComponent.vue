@@ -2,15 +2,19 @@
     <div class="row col justify-content-center mt-5">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-body" style="min-height:300px;">
-                    <div class="align-items-center justify-content-center d-flex w-100 h-100">
-                        <div class="loading center" v-show="loading">
+                <div class="card-body">
+
+                    <div v-if="loading"
+                         class="align-items-center justify-content-center d-flex w-100 h-100"
+                         style="min-height:300px;"
+                    >
+                        <div class="loading center" >
                             <div class="spinner-border text-secondary" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </div>
                     </div>
-                    <div v-if="!loading && !error">
+                    <div v-else-if="!loading && !error">
                         <h1 class="mb-2">{{ data.title }}</h1>
                         <hr />
                         <div class="col row">

@@ -63,16 +63,14 @@
 
                 try {
                     this.loading = true;
-                    let response = await axios.post('/api/pages', {
-                        url : this.url
-                    });
+                    let response = await this.$store.dispatch('pages/save', this.url);
                     this.loading = false;
-                    this.$router.push(`/show/${response.data.data.id}`);
+                    this.$router.push(`/show/${response.id}`);
 
                 } catch(error) {
 
                     this.loading = false;
-                    this.error = error.response.data.message;
+                    this.error = error.data.message;
                     this.formClass = 'is-invalid';
                 }
 

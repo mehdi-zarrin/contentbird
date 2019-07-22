@@ -5,6 +5,9 @@
  */
 import VueRouter from 'vue-router';
 import routes from './routes';
+import Vuex from 'vuex';
+import storeData from './store/index';
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -32,4 +35,5 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 const app = new Vue({
     el: '#app',
     router: new VueRouter(routes),
+    store: new Vuex.Store(storeData)
 });

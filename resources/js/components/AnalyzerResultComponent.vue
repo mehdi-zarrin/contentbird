@@ -81,20 +81,38 @@ export default {
 
     methods: {
         async fetch() {
-            try {
-                let response = await axios.get(`/api/pages/${this.$route.params.id}`);
 
-                this.data = response.data.data.result;
-                this.labels = Object.keys(this.data).filter(item => item !== 'title');
-                this.values = this.labels.map(key => this.data[key]);
+            if(this.getItemById && this.getItemById.hasOwnProperty('result')) {
+                this.data = this.getItemById['result'];
+                this.render();
                 this.loading = false;
-
-            } catch(error) {
-                this.loading = false;
-                this.error = error.response.data.message;
+            } else {
+                // if we reach here, it means that the user refresh the page
+                try {
+                    let response = await this.$store.dispatch('pages/getOne', this.$route.params.id);
+                    this.data = response.result;
+                    this.loading = false;
+                    this.render();
+                } catch(error) {
+                    this.loading = false;
+                    this.error = error.data.message;
+                }
             }
+
+        },
+
+        render() {
+            this.labels = Object.keys(this.data).filter(item => item !== 'title');
+            this.values = this.labels.map(key => this.data[key]);
         }
-    }
+    },
+
+    computed: {
+        getItemById() {
+            return this.$store.getters['pages/getItemById'](this.$route.params.id);
+        }
+    },
+
 };
 </script>
 

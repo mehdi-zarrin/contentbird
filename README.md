@@ -1,6 +1,6 @@
 Please clone the project: 
 
-`git@github.com:mehdi-zarrin/interview-demo-contentbird.io.git`
+`git@github.com:mehdi-zarrin/contentbird.git`
 
 Note: I assumed you have node and npm installed on your computer.
 
@@ -40,10 +40,3 @@ if you don’t have docker please do the following:
 4- run php artisan serve
  
 5- browse the project from the given port
-
------
-**I hope you find this project interesting.** 
-
-**Thanks for reading.**
-
-**Mehdi**

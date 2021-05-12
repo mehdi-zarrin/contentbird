@@ -23,7 +23,7 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
-        "chart.js": "^2.8.0",
+        "chart.js": "^2.9.4",
         "validate.js": "^0.13.1",
         "vue-router": "^3.0.7",
         "vue-template-compiler": "^2.6.10",
